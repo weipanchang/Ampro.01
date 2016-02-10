@@ -104,6 +104,12 @@ if(!$fgmembersite->CheckLogin())
     $sql = "SELECT * FROM `PCB_Issue_Tracking` WHERE `PCB` = '$barcode' order by create_time DESC";
     $result=mysql_query($sql, $con);
     while($row=mysql_fetch_array($result))  {
+        if ($row['fixed'] == 1) {
+            $fixed = "Yes";
+        }
+        else {
+            $fixed = "No";
+        }
         array_push($rec_array, $row['recnumber']);
         echo "<tr style='font-weight: bold;'>"; 
         echo "<tr>";  
@@ -112,7 +118,7 @@ if(!$fgmembersite->CheckLogin())
         echo "<td align='center' width='5%'>" . $row['line'] . "</td>";
         echo "<td align='center' width='10%'>" . $row['station'] . "</td>";
         echo "<td align='left' width='38%'>" . $row['Issue_log'] . "</td>";  
-        echo "<td align='center' width='5%'>" . "No" . "</td>";  
+        echo "<td align='center' width='5%'>" . $fixed . "</td>";  
         echo "<td align='center' width='25%'>" . $row['create_time'] . "</td>"; 
     echo "</tr>";
     }

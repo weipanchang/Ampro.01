@@ -74,12 +74,15 @@ if(!$fgmembersite->CheckLogin())
             echo "<option value='" . $row['model'] ."'>" . $row['model'] ."</option>";
          }
          echo "</select>";
-      }
+      
 ?>
    <br><br>
    <br><br>
    <input type="submit" name="submit3" style="color: #FF0000; font-size: larger;" value="Confirm Your Select">
 </form>
+<?php
+      }
+?>
    <br><br>
 <?php
    if (($station_type=='AOI') and (isset($_POST['submit3']))) {
@@ -98,7 +101,7 @@ if(!$fgmembersite->CheckLogin())
 <?php   
    }
    elseif (isset($_POST['submit3'])) {
-      $operator=$_POST['name'];
+      $operator = $_SESSION['username'];
       echo "<h4>Your Login ID is :  $operator </h4>";
 ?>   
    <form method="post" action="Ampro_php_form3.php" >

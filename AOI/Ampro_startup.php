@@ -98,7 +98,7 @@ if(!$fgmembersite->CheckLogin())
 <?php   
    }
    elseif (isset($_POST['submit3'])) {
-      $operator=$_POST['name'];
+      $operator = $_SESSION['username'];
       echo "<h4>Your Login ID is :  $operator </h4>";
 ?>   
    <form method="post" action="Ampro_php_form3.php" >
