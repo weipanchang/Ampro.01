@@ -19,15 +19,10 @@ if(!$fgmembersite->CheckLogin())
 <div id='fg_membersite_content'>
 <h2>Home Page</h2>
 Welcome back <?= $fgmembersite->UserFullName(); ?>!
-<?php
 
-?>
-<li><p><a href='change-pwd.php'>Change password</a></p></li>
+<p><a href='change-pwd.php'>Change password</a></p>
 
-
-<li><a href='Ampro_Barcode_Associate.php' style="color:blue"> Ampro Barcode Matching and Shipping Station Page</a></li>
-<li><a href='Ampro_php_form3.php' style="color:blue"> Ampro Assemble Line Operation Page</a></li>
-
+<p><a href='access-controlled.php'>A sample 'members-only' page</a></p>
 <br><br><br>
 <p><a href='logout.php'>Logout</a></p>
 </div>

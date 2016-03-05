@@ -80,7 +80,7 @@ if(!$fgmembersite->CheckLogin())
 ?>
 <h5>
 <?php
-        if (($row['note'] != "Checked in") and ($row['note'] != "")) {
+        if (($row['note'] != "Checked in") and ($row['note'] != "") and ($row['note'] != "New PCB Record Created !")) {
             echo $row['station'];
             echo " ";
             echo $row['line']. ": ";
@@ -97,28 +97,38 @@ if(!$fgmembersite->CheckLogin())
 //    $rec_array=[];
     echo "Issue Log: ";
     echo "<br>";
-    echo "<table width='1000' border='5'; style='border-collapse: collapse;border-color: silver;'>";  
+    echo "<table width='1300' border='5'; style='border-collapse: collapse;border-color: silver;'>";  
     echo "<tr style='font-weight: bold;'>";  
-    echo "<td width='5%' align='center'>Rec</td><td width='15%' align='center'>PCB Number</td><td width='5%' align='center'>Line</td><td width='10%' align='center'>Station</td><td width='38%' align='center'>Issue</td>  ";  
-    echo "<td width='5%' align='center'>Fixed</td><td width='25%' align='center'>Time</td></tr>";
+    echo "<td width=3%' align='center'>Rec</td><td width='5%' align='center'>PCB Number</td><td width='1%' align='center'>Line</td><td width='4%' align='center'>Station</td><td width='15%' align='center'>Issue</td>  ";  
+    echo "<td width='15%' align='center'>Comment</td><td width='3%' align='center'>Fixed</td><td width='8%' align='center'>Found At</td><td width='8%' align='center'>Fixed At</td></tr>";
     $sql = "SELECT * FROM `PCB_Issue_Tracking` WHERE `PCB` = '$barcode' order by create_time DESC";
     $result=mysql_query($sql, $con);
     while($row=mysql_fetch_array($result))  {
+
+        if ($row['fixed'] == 1) {
+            $fixed = "Yes";
+        }
+        else {
+            $fixed = "No";
+        }
         array_push($rec_array, $row['recnumber']);
         echo "<tr style='font-weight: bold;'>"; 
         echo "<tr>";  
-        echo "<td align='center' width='5%'>" . $row['recnumber'] . "</td>";  
-        echo "<td align='center' width='15%'>" . $row['PCB'] . "</td>";
-        echo "<td align='center' width='5%'>" . $row['line'] . "</td>";
-        echo "<td align='center' width='10%'>" . $row['station'] . "</td>";
-        echo "<td align='left' width='38%'>" . $row['Issue_log'] . "</td>";  
-        echo "<td align='center' width='5%'>" . "No" . "</td>";  
-        echo "<td align='center' width='25%'>" . $row['create_time'] . "</td>"; 
+        echo "<td align='center' width='3%'>" . $row['recnumber'] . "</td>";  
+        echo "<td align='center' width='5%'>" . $row['PCB'] . "</td>";
+        echo "<td align='center' width='1%'>" . $row['line'] . "</td>";
+        echo "<td align='center' width='4%'>" . $row['station'] . "</td>";
+        echo "<td align='left' width='15%'>" . $row['Issue_log'] . "</td>";
+        echo "<td align='left' width='15%'>" . $row['r_comment'] . "</td>";  
+        echo "<td align='center' width='3%'>" . $fixed . "</td>";  
+        echo "<td align='center' width='8%'>" . $row['create_time'] . "</td>";
+        echo "<td align='center' width='8%'>" . $row['update_time'] . "</td>";
     echo "</tr>";
     }
     echo "</table>";  
     echo "   ";
     mysql_close($con);
+    
 ?>
 
 <?php

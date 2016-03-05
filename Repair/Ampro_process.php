@@ -80,7 +80,7 @@ if(!$fgmembersite->CheckLogin())
 ?>
 <h5>
 <?php
-        if (($row['note'] != "Checked in") and ($row['note'] != "")) {
+        if (($row['note'] != "Checked in") and ($row['note'] != "") and ($row['note'] != "New PCB Record Created !")) {
             echo $row['station'];
             echo " ";
             echo $row['line']. ": ";
@@ -104,6 +104,7 @@ if(!$fgmembersite->CheckLogin())
     $sql = "SELECT * FROM `PCB_Issue_Tracking` WHERE `PCB` = '$barcode' order by create_time DESC";
     $result=mysql_query($sql, $con);
     while($row=mysql_fetch_array($result))  {
+
         if ($row['fixed'] == 1) {
             $fixed = "Yes";
         }
@@ -127,6 +128,7 @@ if(!$fgmembersite->CheckLogin())
     echo "</table>";  
     echo "   ";
     mysql_close($con);
+    
 ?>
 
 <?php

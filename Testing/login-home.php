@@ -25,7 +25,6 @@ Welcome back <?= $fgmembersite->UserFullName(); ?>!
 <li><p><a href='change-pwd.php'>Change password</a></p></li>
 
 
-<li><a href='Ampro_Barcode_Associate.php' style="color:blue"> Ampro Barcode Matching and Shipping Station Page</a></li>
 <li><a href='Ampro_php_form3.php' style="color:blue"> Ampro Assemble Line Operation Page</a></li>
 
 <br><br><br>

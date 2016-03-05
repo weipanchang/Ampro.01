@@ -98,7 +98,7 @@ $comment = "";
 $barcodeerror = "";
 $commenterror = "";
 $error=0;
-$operator = $_POST['name'];
+$operator = $_SESSION['username'];
 if ($station_type=='AOI') {
    $model = $_POST['model'];
 }
@@ -137,10 +137,10 @@ function test_input($data) {
    }
 ?>
 
-<form method="post" action="Ampro_startup.php" >
-   <h5 style="text-align:right; color:red; text-decoration: underline";>Change Model, Please Click Back &nbsp;</h5>
+<form method="post" action="logout.php" >
+   <h5 style="text-align:right; color:red; text-decoration: underline";>Log Out, Please Click Logout &nbsp;</h5>
    <div style="text-align:right">  
-      <input type="submit" name="submit" style="text-align:center;color: #FF0000; font-size: medium;" value="Back">
+      <input type="submit" name="submit" style="text-align:center;color: #FF0000; font-size: medium;" value="Logout">
    </div> 
 </form>
 <form method = "post" action="">
