@@ -105,7 +105,7 @@ if (isset($_POST['submit8'])) {
     //$SMC_barcdoe1 = $_POST['SMC_barcode1'];
     if ($Ampro_barcode1 !="" and $SMC_barcode1 !="") {
     $con=mysql_connect($db_host,$db_username,$db_password);
-    $sql = "INSERT INTO `PCB_Barcode`(`Ampro_barcode`, `SMC_Barcode`, `operator`) VALUES('$Ampro_barcode1','$SMC_barcode1', '$operator')";
+    $sql = "INSERT INTO `PCB_Barcode`(`AMP_barcode`, `SMC_Barcode`, `operator`) VALUES('$Ampro_barcode1','$SMC_barcode1', '$operator')";
     mysql_select_db($db_name);
     $result=mysql_query($sql, $con);
          if(! $result ) {
