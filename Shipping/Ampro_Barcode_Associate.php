@@ -34,22 +34,7 @@ $commenterror = "";
 $error=0;
 $operator = $_SESSION['username'];
 
-//echo $operator;
-//echo $model;
-//if ($_SERVER["REQUEST_METHOD"] == "POST") {
-//   if (empty($_POST["barcode"])) {
-//     $barcodeerror = "Barcode is required";
-//     $error=1;
-//   }
-//   elseif (strlen($_POST["barcode"]) != 12) {
-//     $barcodeerror = "Invalid Barcode. Please rescan!";
-//     $error=1;
-//   }
-//   else {
-//     $barcode = test_input($_POST["barcode"]);
-//     $error=0;
-//   }
-//}
+
 
 function test_input($data) {
    $data = trim($data);
@@ -58,7 +43,7 @@ function test_input($data) {
    return $data;
 }
 ?>
-<h1 style="text-align:center; color:blue; text-decoration: underline";>Ampro System PCB Check in/out</h1>
+<h1 style="text-align:center; color:blue; text-decoration: underline";>Ampro System PCB Barcode Associate Page</h1>
 <h3 style="text-align:center; color:blue; text-decoration: underline";> <?php echo $station_type; echo " Station    "; echo $line_number; ?></php?></h3>
 <h4 style="text-align:center; color:blue;";> <?php echo "Name: "; echo $operator;?></php?></h4>
 
@@ -70,7 +55,7 @@ function test_input($data) {
         <p>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp<input type="text" style="text-align:center;color: #FF0000; font-size: large;" name="Ampro_barcode1" value="<?php echo "";?>"> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
         <input type="text" style="text-align:center;color: #FF0000; font-size: large;" name="SMC_barcode1" value="<?php echo "";?>">
 
-        &nbsp &nbsp &nbsp<input type="submit" name="submit8" style="text-align:center;color: #FF0000; font-size: large;" value="Entering this Barcode"> </p>
+        &nbsp &nbsp &nbsp<input type="submit" name="submit8" style="text-align:center;color: #FF0000; font-size: large;" value="Register this Barcode"> </p>
         </ul>
     </div>
    <!--   Barcode:  <input type="text" name="barcode" value="">-->
