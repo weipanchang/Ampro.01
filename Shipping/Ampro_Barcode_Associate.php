@@ -90,20 +90,45 @@ if (isset($_POST['submit8'])) {
     //$SMC_barcdoe1 = $_POST['SMC_barcode1'];
     if ($Ampro_barcode1 !="" and $SMC_barcode1 !="") {
     $con=mysql_connect($db_host,$db_username,$db_password);
-    $sql = "INSERT INTO `PCB_Barcode`(`AMP_barcode`, `SMC_Barcode`, `operator`) VALUES('$Ampro_barcode1','$SMC_barcode1', '$operator')";
     mysql_select_db($db_name);
+    $sql = "SELECT `model` FROM `PCB_Tracking` WHERE `PCB` = '$Ampro_barcode1' and `note` = 'New PCB Record Created !'";
+    $result=mysql_query($sql, $con);
+    $row=mysql_fetch_array($result);
+     if(! $result ) {
+        die('Cannot Find Model Name:     ' . mysql_error());
+     }
+     else
+     {
+        $model = $row['model'];
+     }
+    
+//    $result=mysql_query($sql, $con);
+    $sql = "INSERT INTO `PCB_Barcode`(`AMP_barcode`, `SMC_Barcode`, `model`,`operator`) VALUES('$Ampro_barcode1','$SMC_barcode1', '$model', '$operator')";
+    
     $result=mysql_query($sql, $con);
          if(! $result ) {
             die('Could not enter data:     ' . mysql_error());
          }
          else
-         {
-         echo "<br>";
-         echo "<br>";
-         echo "Barcode Entered Successfully!\n";
+         { 
+            echo "<br>";
+            echo "<br>";
+            echo "Barcode Entered Successfully!\n";
 
          }
-      mysql_close($con);
+    $sql = "INSERT INTO `PCB_Tracking`(`PCB`, `model`, `top`, `bottom`,`line`, `station`, `status`,
+        `scrapped`, `operator`, `note`) VALUES('$Ampro_barcode1', '$model', '1', '1','$line_number','$station_type',0,0,'$operator', 'SMC Barcode Associated')";
+    $result=mysql_query($sql, $con);
+         if(! $result ) {
+            die('Could not enter data:     ' . mysql_error());
+         }
+         else
+         { 
+            echo "<br>";
+            echo "<br>";
+            echo "Tracking Record Updated Successfully!\n";
+         }
+    mysql_close($con);
     }
     else {
         echo "The Barcode entry is empty, both Barcodes are needed! ";
