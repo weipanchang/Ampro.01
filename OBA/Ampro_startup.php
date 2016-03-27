@@ -6,7 +6,6 @@ if(!$fgmembersite->CheckLogin())
     $fgmembersite->RedirectToURL("login.php");
     exit;
 }
-
 ?>
 
 <!DOCTYPE HTML>
@@ -54,19 +53,16 @@ if(!$fgmembersite->CheckLogin())
 <form name="myform3" method="POST" action="">
 <!--   <p><span class="error">* Please select your name *</span></p>-->
    Welcome back <?= $fgmembersite->UserFullName(); ?>!
-   <?php
+<?php
       $con=mysql_connect($db_host,$db_username,$db_password);
       mysql_select_db($db_name);
       $operator = $_SESSION['username'];
-   ?>
-   <br><br>
-   <br><br>
-   <?php
+
       if ($station_type=='AOI') {
-   ?>
+?>
    <p><span class="error">* Please select the Model number *</span></p>
 
-   <?php
+<?php
       }
       if ($station_type=='AOI') {
          //$con=mysql_connect($db_host,$db_username,$db_password);
@@ -79,7 +75,7 @@ if(!$fgmembersite->CheckLogin())
          }
          echo "</select>";
       }
-   ?>
+?>
    <br><br>
    <br><br>
    <input type="submit" name="submit3" style="color: #FF0000; font-size: larger;" value="Confirm Your Select">
@@ -89,32 +85,34 @@ if(!$fgmembersite->CheckLogin())
    if (($station_type=='AOI') and (isset($_POST['submit3']))) {
       //$operator=$_POST['name'];
       $model=$_POST['model'];
-      echo "<h3>Your Name:  $operator </h3>";
-      echo "<h3>Model:  $model </h3>";
+      echo "<h4>Your Login ID is:  $operator </h4>";
+      echo "<h4>Model:  $model </h4>";
 ?>
    <form method="post" action="Ampro_php_form3.php" >
    <input type="hidden" name="name"
      value="<?php echo  $operator; ?>">
    <input type="hidden" name="model"
      value="<?php echo  $model; ?>">
-   <input type="submit" name="submit3" style="color: #FF0000; font-size: larger;" value="Login">
+   <input type="submit" name="submit3" style="color: #FF0000; font-size: larger;" value="Next">
    </form>
 <?php   
    }
    elseif (isset($_POST['submit3'])) {
-      $operator=$_POST['name'];
-      echo "<h3>Your Name:  $operator </h3>";
+      $operator = $_SESSION['username'];
+      echo "<h4>Your Login ID is :  $operator </h4>";
 ?>   
    <form method="post" action="Ampro_php_form3.php" >
       <input type="hidden" name="name"
         value="<?php echo  $operator; ?>">
       <input type="hidden" name="model"
         value="<?php echo  $model; ?>">
-      <input type="submit" name="submit3" style="color: #FF0000; font-size: larger;" value="Login">
+      <input type="submit" name="submit3" style="color: #FF0000; font-size: larger;" value="Next">
    </form>
 <?php
    }
    echo "<br>";
    mysql_close($con);
 ?>
+
+<p><a href='logout.php'>Logout</a></p>
 
