@@ -99,8 +99,11 @@ if(!$fgmembersite->CheckLogin())
     echo "<br>";
     echo "<table width='1300' border='5'; style='border-collapse: collapse;border-color: silver;'>";  
     echo "<tr style='font-weight: bold;'>";  
-    echo "<td width=3%' align='center'>Rec</td><td width='5%' align='center'>PCB Number</td><td width='1%' align='center'>Line</td><td width='4%' align='center'>Station</td><td width='15%' align='center'>Issue</td>  ";  
-    echo "<td width='15%' align='center'>Comment</td><td width='3%' align='center'>Fixed</td><td width='8%' align='center'>Found At</td><td width='8%' align='center'>Fixed At</td></tr>";
+    echo "<td width=3%' align='center'>Rec</td><td width='5%' align='center'>PCB Number</td>";
+    echo "<td width='1%' align='center'>Line</td><td width='4%' align='center'>Station</td>";
+    echo "<td width='15%' align='center'>Issue</td><td width='15%' align='center'>Defect</td> ";  
+    echo "<td width='15%' align='center'>Comment</td><td width='3%' align='center'>Fixed</td>";
+    echo "<td width='8%' align='center'>Found At</td><td width='8%' align='center'>Fixed At</td></tr>";
     $sql = "SELECT * FROM `PCB_Issue_Tracking` WHERE `PCB` = '$barcode' order by create_time DESC";
     $result=mysql_query($sql, $con);
     while($row=mysql_fetch_array($result))  {
@@ -119,6 +122,7 @@ if(!$fgmembersite->CheckLogin())
         echo "<td align='center' width='1%'>" . $row['line'] . "</td>";
         echo "<td align='center' width='4%'>" . $row['station'] . "</td>";
         echo "<td align='left' width='15%'>" . $row['Issue_log'] . "</td>";
+        echo "<td align='left' width='15%'>" . $row['defect'] . "</td>";
         echo "<td align='left' width='15%'>" . $row['r_comment'] . "</td>";  
         echo "<td align='center' width='3%'>" . $fixed . "</td>";  
         echo "<td align='center' width='8%'>" . $row['create_time'] . "</td>";
@@ -176,6 +180,7 @@ if(!$fgmembersite->CheckLogin())
      mysql_select_db($db_name);
      $sql = "SELECT `Issue` FROM `PCB_Issue` WHERE `station` = '$station_type'  ";
      $result=mysql_query($sql, $con);
+
 ?>
 
 <form name="issueform" action="Ampro_process.php" method="POST">
@@ -189,12 +194,24 @@ if(!$fgmembersite->CheckLogin())
             echo "<option value='" . $row['Issue'] ."'>" . $row['Issue'] ."</option>";
         }
     echo "</select>";
+
     echo " On ";
 ?>
     <select name="topbottom">
         <option value="top">Top</option>
         <option value="bottom">Bottom</option>
     </select>
+<?php
+    $con=mysql_connect($db_host,$db_username,$db_password);
+    mysql_select_db($db_name);
+    $sql1 = "SELECT * FROM `PCB_Defect`";
+    $result1=mysql_query($sql1, $con);
+    echo "<select name='defect'>";
+    while ($row= mysql_fetch_array($result1) ) {
+        echo "<option value='" . $row['Defect'] ."'>" . $row['Defect'] ."</option>";
+    }
+    echo "</select>";
+?>
     <br>
     <textarea cols=70 rows=3 name="location"  style="color:#CD2200" value="">Location: </textarea>
     <input type="hidden" name="barcode" value="<?php echo  $barcode;?>">
@@ -213,6 +230,7 @@ if(!$fgmembersite->CheckLogin())
 
 <?php
     if (isset($_POST['submit6'])) {
+        $defect= $_POST['defect'];
         $issueinfo = $_POST['issue']. " on " .$_POST['topbottom']. " in ".  $_POST['location'];
         if (!($issueinfo === ' on top in ')) {
             if ((substr($issueinfo, 0, 11)) == ' on top in '){
@@ -233,7 +251,7 @@ if(!$fgmembersite->CheckLogin())
             //echo $row['Issue_log'];
             //echo "<br>";
             if (!($issueinfo == $row['Issue_log'] and $row['create_time'] <= $dd)) {
-            $sql = "INSERT INTO `PCB_Issue_Tracking`(`PCB`, `Issue_log`, `station`, `line`, `operator`) VALUES('$barcode','$issueinfo','$station_type','$line_number', '$operator')";
+            $sql = "INSERT INTO `PCB_Issue_Tracking`(`PCB`, `Issue_log`, `defect`, `station`, `line`, `operator`) VALUES('$barcode','$issueinfo', '$defect', '$station_type','$line_number', '$operator')";
             $result=mysql_query($sql, $con);
  
             echo "New issue Added:---- " . $issueinfo;
