@@ -29,8 +29,8 @@ if(!$fgmembersite->CheckLogin())
 <form method="post" action="Search_with_Ampro_Barcode.php">
 <table> 
 <tr>
-<td style="color:blue" >Enter Ampro System Barcode</td>
-<td><input type="text" name="AMP_barcode" size="12" value=""></td>
+<td style="color:blue" >Enter Ampro System Barcode: &nbsp; &nbsp; &nbsp;</td>
+<td><input type="text" name="AMP_barcode" size="25" value=""></td>
 </tr>
 
 <!--<tr>
@@ -142,9 +142,9 @@ else
     <input type="hidden" name="recnumber" value="<?php echo $rec_number;?>
    <div style="text-align:center; font-size: large;"> 
         <ul>
-        <p><pre>                AmPro System Barcode:              SuperMicro Barcode:                                 Shipped</pre></p>
+        <p><pre>                AmPro System Barcode:                   SuperMicro Barcode:                           Shipped</pre></p>
         <p><pre> 
-                   <?php echo $AMP_barcode;?>              <input type="text" style="text-align:center;color: #FF0000; font-size: large;" name="SMC_barcode" value="<?php echo $SMC_barcode;?>">                    <input type="checkbox" name="shipped" value="" checked>         <input type="submit" name="submit8" style="text-align:center;color: #FF0000; font-size: large;" value="Update">
+                   <?php echo "<span style='color: red; font-size: 15pt';>$AMP_barcode</span>";?>                 <input type="text" style="text-align:center;color: #FF0000; font-size: large;" name="SMC_barcode" value="<?php echo $SMC_barcode;?>">                          <input type="checkbox" name="shipped" value="" checked>         <input type="submit" name="submit8" style="text-align:center;color: #FF0000; font-size: large;" value="Update">
         </pre></p>
 
         </ul>

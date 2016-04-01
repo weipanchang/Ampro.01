@@ -28,7 +28,7 @@ Welcome back <?= $fgmembersite->UserFullName(); ?>!
 <HR WIDTH="100%" COLOR="#6699FF" SIZE="6">
 <!--<li><a href='Ampro_change_shipping_flag.php' style="color:blue">Modify Shipping Flag </a></li>-->
 <br><br><br>
-<p><a href='index.html'>Back</a></p>
+<p><a href='login-home.php'>Back</a></p>
 </div>
 </body>
 </html>

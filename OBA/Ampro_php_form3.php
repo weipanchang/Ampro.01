@@ -42,7 +42,7 @@ if(!$fgmembersite->CheckLogin())
 
     if (isset($_POST['submit2'])) {
         $barcode=$_POST['barcode'];
-        $operator=$_POST['name'];
+        $operator = $fgmembersite->UserFullName();
         $model=$_POST['model'];
         $note = htmlspecialchars($_POST['note']);
         $note=clean($note);

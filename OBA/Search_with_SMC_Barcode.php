@@ -29,8 +29,8 @@ if(!$fgmembersite->CheckLogin())
 <form method="post" action="Search_with_SMC_Barcode.php">
 <table> 
 <tr>
-<td style="color:blue" >Enter SuperMicro Barcode</td>
-<td><input type="text" name="SMC_barcode" size="12" value=""></td>
+<td style="color:blue" >Enter SuperMicro Barcode:  &nbsp; &nbsp; &nbsp;</td>
+<td><input type="text" name="SMC_barcode" size="25" value=""></td>
 </tr>
 
 <td ><input type="submit" value="Submit" style="background-color:#0000ff; color:#fff;" ></td>
@@ -122,13 +122,13 @@ mysql_close($con);
 
 <?php
 
-if (!isset($_POST['AMP_barcode'])) 
+if (!isset($_POST['SMC_barcode'])) 
     {
-    $AMP_barcode = null;
+    $SMC_barcode = null;
     }
 else 
     {
-    $AMP_barcode = $_POST['AMP_barcode'];
+    $SMC_barcode = $_POST['SMC_barcode'];
     }
 
 ?>
@@ -139,9 +139,9 @@ else
     <input type="hidden" name="recnumber" value="<?php echo $rec_number;?>
    <div style="text-align:center; font-size: large;"> 
         <ul>
-        <p><pre>                SuperMicro System Barcode:              Ampro Barcode:                                 Shipped</pre></p>
+        <p><pre>                SuperMicro System Barcode:                 Ampro Barcode:                                   Shipped</pre></p>
         <p><pre> 
-                   <?php echo $SMC_barcode;?>              <input type="text" style="text-align:center;color: #FF0000; font-size: large;" name="AMP_barcode" value="<?php echo $AMP_barcode;?>">                    <input type="checkbox" name="shipped" value="" checked>         <input type="submit" name="submit8" style="text-align:center;color: #FF0000; font-size: large;" value="Update">
+                   <?php echo "<span style='color: red; font-size: 15pt';>$SMC_barcode</span>";?>                    <input type="text" style="text-align:center;color: #FF0000; font-size: large;" name="AMP_barcode" value="<?php echo $AMP_barcode;?>">                             <input type="checkbox" name="shipped" value="" checked>         <input type="submit" name="submit8" style="text-align:center;color: #FF0000; font-size: large;" value="Update">
         </pre></p>
 
         </ul>

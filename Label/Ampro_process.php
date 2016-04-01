@@ -26,7 +26,7 @@ if(!$fgmembersite->CheckLogin())
     }
     
     $barcode = $_POST['barcode'];
-    $operator = $_POST['name'];
+    $operator = $fgmembersite->UserFullName();
     if ($station_type =="AOI") {
         $model = $_POST['model'];
     }
@@ -178,7 +178,7 @@ if(!$fgmembersite->CheckLogin())
   if (($station_type=='AOI') or ($station_type=='Testing') or ($station_type=='QA') or ($station_type=='Label') or ($station_type=='Shipping')) {
      $con=mysql_connect($db_host,$db_username,$db_password);
      mysql_select_db($db_name);
-     $sql = "SELECT `Issue` FROM `PCB_Issue` WHERE `station` = '$station_type'  ";
+     $sql = "SELECT `Issue` FROM `PCB_Issue` group by `Issue` order by `Issue`";
      $result=mysql_query($sql, $con);
 
 ?>

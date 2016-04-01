@@ -26,14 +26,11 @@ if(!$fgmembersite->CheckLogin())
     }
     
     $barcode = $_POST['barcode'];
-    $operator = $_POST['name'];
+    $operator = $fgmembersite->UserFullName();
     if ($station_type =="AOI") {
         $model = $_POST['model'];
     }
-    
-    //$issueinfo = $_POST['issueinfo'];
-    include("Ampro_station_info.php");
-    require_once("connMysql.php");
+
 ?>
 <h4 style="text-align:center; color:blue; text-decoration: underline";> <?php echo "Ampro System PCB Check in/out"; ?></php></h4>
 <h5 style="text-align:center; color:blue; text-decoration: underline";> <?php echo $station_type; echo " Station    "; echo $line_number; ?></php?></h5><h5 style="text-align:center; color:blue;";> <?php echo "Name: "; echo $operator;?></php?></h5>
@@ -178,7 +175,7 @@ if(!$fgmembersite->CheckLogin())
   if (($station_type=='AOI') or ($station_type=='Testing') or ($station_type=='QA') or ($station_type=='Label') or ($station_type=='Shipping')) {
      $con=mysql_connect($db_host,$db_username,$db_password);
      mysql_select_db($db_name);
-     $sql = "SELECT `Issue` FROM `PCB_Issue` WHERE `station` = '$station_type'  ";
+     $sql = "SELECT `Issue` FROM `PCB_Issue` group by `Issue` order by `Issue`";
      $result=mysql_query($sql, $con);
 
 ?>

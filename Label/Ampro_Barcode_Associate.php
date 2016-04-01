@@ -142,6 +142,6 @@ if (isset($_POST['submit8'])) {
 <br><br>
 <br><br>
 
-<p><a href='logout.php'>Logout</a></p>
+<p><a href='login-home.php'>Back</a></p>
 </body>
 </html>

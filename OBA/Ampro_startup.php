@@ -56,7 +56,7 @@ if(!$fgmembersite->CheckLogin())
 <?php
       $con=mysql_connect($db_host,$db_username,$db_password);
       mysql_select_db($db_name);
-      $operator = $_SESSION['username'];
+      $operator = $fgmembersite->UserFullName();
 
       if ($station_type=='AOI') {
 ?>
