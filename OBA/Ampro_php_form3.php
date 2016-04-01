@@ -98,7 +98,7 @@ $comment = "";
 $barcodeerror = "";
 $commenterror = "";
 $error=0;
-$operator = $_SESSION['username'];
+$operator = $fgmembersite->UserFullName();
 if ($station_type=='AOI') {
    $model = $_POST['model'];
 }

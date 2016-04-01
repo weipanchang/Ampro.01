@@ -1,5 +1,6 @@
 <?php
 require_once("./include/membersite_config.php");
+$operator = $fgmembersite->UserFullName();
 
 if(!$fgmembersite->CheckLogin())
 {
@@ -98,7 +99,7 @@ $comment = "";
 $barcodeerror = "";
 $commenterror = "";
 $error=0;
-$operator = $_POST['name'];
+$operator = $fgmembersite->UserFullName();
 if ($station_type=='AOI') {
    $model = $_POST['model'];
 }

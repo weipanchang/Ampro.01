@@ -1,11 +1,11 @@
 <?PHP
 require_once("./include/membersite_config.php");
+require_once("connMysql.php");
 
 if(isset($_POST['submitted']))
 {
-   if($fgmembersite->Login() and $_SESSION['permission'] >= 2)
+   if($fgmembersite->Login() and $_SESSION['permission'] >= 1)
    {
-        $_SESSION['username'] = $_POST['username'];
         $fgmembersite->RedirectToURL("login-home.php");
    }
 }
@@ -34,8 +34,19 @@ if(isset($_POST['submitted']))
 <div><span class='error'><?php echo $fgmembersite->GetErrorMessage(); ?></span></div>
 <div class='container'>
     <label for='username' >UserName*:</label><br/>
-    <input type='text' name='username' id='username' value='<?php echo $fgmembersite->SafeDisplay('username') ?>' maxlength="50" /><br/>
-    <span id='login_username_errorloc' class='error'></span>
+    <?php
+    $con=mysql_connect($db_host,$db_username,$db_password);
+    mysql_select_db('mysql');
+    $sql1 = "SELECT * FROM `fgusers3` order by `username`";
+    $result1=mysql_query($sql1, $con);
+    echo "<select name='username'>";
+    while ($row= mysql_fetch_array($result1) ) {
+        echo "<option value='" . $row['username'] ."'>" . $row['username'] ."</option>";
+    }
+    echo "</select>";
+?>
+<!--    <input type='text' name='username' id='username' value='<?php echo $fgmembersite->SafeDisplay('username') ?>' maxlength="50" /><br/>
+    <span id='login_username_errorloc' class='error'></span>-->
 </div>
 <div class='container'>
     <label for='password' >Password*:</label><br/>

@@ -15,7 +15,7 @@ $fgmembersite->SetAdminEmail('webmaster@Ampro.com');
 //by itself on submitting register.php for the first time
 $fgmembersite->InitDB(/*hostname*/'localhost',
                       /*username*/'root',
-                      /*password*/'abc123',
+                      /*password*/'sql@123',
                       /*database name*/'mysql',
                       /*table name*/'fgusers3');
 //For better security. Get a random string from this link: http://tinyurl.com/randstr

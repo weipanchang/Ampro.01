@@ -1,5 +1,6 @@
 <?php
 require_once("./include/membersite_config.php");
+$operator = $fgmembersite->UserFullName();
 
 if(!$fgmembersite->CheckLogin())
 {
@@ -32,7 +33,7 @@ $comment = "";
 $barcodeerror = "";
 $commenterror = "";
 $error=0;
-$operator = $_SESSION['username'];
+$operator = $fgmembersite->UserFullName();
 
 
 
@@ -85,7 +86,7 @@ else
     }
     
 if (isset($_POST['submit8'])) {
-    $operator = $_SESSION['username'];
+    $operator = $fgmembersite->UserFullName();
     //$Ampro_barcdoe1 = $_POST['Ampro_barcode1'];
     //$SMC_barcdoe1 = $_POST['SMC_barcode1'];
     if ($Ampro_barcode1 !="" and $SMC_barcode1 !="") {
