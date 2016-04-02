@@ -144,7 +144,7 @@ function test_input($data) {
    </div> 
 </form>
 <form method = "post" action="">
-   <p><span class="error">* Please Scan the Barcode *</span></p>
+   <p><span class="error">* Please Scan SuperMicro Barcode *</span></p>
    <?php
       if (isset($_POST['submit2'])) {
    ?>
@@ -175,7 +175,7 @@ function test_input($data) {
 if (isset($_POST['submit2'])) {
    $barcode = "";
 }
-echo "<h3>Your Input:</h3>";
+echo "<h3>Your Input SuperMicro Barcode:</h3>";
 
 echo $barcode;
 echo "<br>";
@@ -185,7 +185,7 @@ echo "<br>";
 $con=mysql_connect($db_host,$db_username,$db_password);
 mysql_select_db($db_name);
 $rowcount=0;
-$sql = "SELECT * FROM `PCB_Tracking` WHERE PCB='$barcode'";
+$sql = "SELECT * FROM `PCB_Barcode` WHERE `SMC_Barcode`='$barcode'";
 
 if (($barcode != "") and ($error == 0)) {
    $result=mysql_query($sql, $con);
@@ -193,42 +193,9 @@ if (($barcode != "") and ($error == 0)) {
 }
 
 if ( $rowcount == 0) {
-   if (($station_type =="AOI") and ($error == 0) and ($barcode != "")) {
-      $sql = "INSERT INTO `PCB_Tracking`(`PCB`, `model`,`line`, `station`, `status`,
-      `scrapped`, `operator`) VALUES('$barcode','$model','$line_number','$station_type',0,0,'$operator')";
-      mysql_select_db($db_name);
-      $result=mysql_query($sql, $con);
-         if(! $result ) {
-            die('Could not enter data: ' . mysql_error());
-         }
-         else {
-         echo "<br>";
-         echo "<br>";
-         echo "Create new PCB record successfully, Please Check In!\n";
-         echo "<br>";
-         echo "<br>";
-         }
-      mysql_close($con);
-?>
-      <form method="post" action="Ampro_process.php" >
-         <input type="hidden" name="barcode"
-           value="<?php echo $_POST['barcode']; ?>">
-         <input type="hidden" name="name"
-            value="<?php echo  $operator; ?>">
-<?php
-         if ($station_type =="AOI") {
-?>
-            <input type="hidden" name="model" value="<?php echo $model;?>">
-<?php
-         }
-?>
-         <input type="submit" name="submit" value="Check In">
-      </form>
-<?php
-   }
-   elseif (($error==0) and ($rowcount == 0) and ($barcode != "") and ($station_type !="AOI")) {
+   if (($error==0) and ($rowcount == 0) and ($barcode != "") and ($station_type !="AOI")) {
       echo "<br>";
-      echo "Barcode is not in database. Please send this PCB to AOI Station";
+      echo "SuperMicro Barcode is not in database. Please rescan or consult your supervisor";
       echo "<br>";
    }
 
@@ -238,17 +205,8 @@ else {
    if ($error==0) {
 ?>
 <form method="post" action="Ampro_process.php" >
-   <input type="hidden" name="barcode"
-     value="<?php echo $_POST['barcode']; ?>">
-   <input type="hidden" name="name"
-        value="<?php echo  $operator; ?>">
-   <?php
-         if ($station_type =="AOI") {
-   ?>
-            <input type="hidden" name="model" value="<?php echo $model;?>">
-   <?php
-         }
-   ?>
+   <input type="hidden" name="barcode" value="<?php echo $_POST['barcode']; ?>">
+   <input type="hidden" name="name" value="<?php echo  $operator; ?>">
    <input type="submit" name="submit" style="color: #FF0000; font-size: larger;" value="Check In">
 </form>
 <?php
