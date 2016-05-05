@@ -136,7 +136,7 @@ if (isset($_POST['submit8'])) {
     }
 }
 ?>
-<form method="post" action="Ampro_Barcode_Matching.php" >
+<form method="post" action="Ampro_Barcode_Associate.php" >
     <input type="submit" name="submit" style="color: #FF0000; font-size: larger;" value="Next">
 </form>
 

@@ -110,11 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $barcodeerror = "Barcode is required";
      $error=1;
    }
-   elseif (strlen($_POST["barcode"]) != 12) {
-     $barcodeerror = "Invalid Barcode. Please rescan!";
-     $error=1;
-   }
-   else {
+else {
      $barcode = test_input($_POST["barcode"]);
      $error=0;
    }

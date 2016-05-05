@@ -63,7 +63,7 @@ else
     $SMC_barcode = $_POST['SMC_barcode']; 
     }
 
-if (($_POST) && ( strlen($AMP_barcode) == 12 )) {
+if (($_POST) && ( strlen($AMP_barcode) >= 4 )) {
 
     echo "<h2> PCB Barcode Table  : </h2>";
     echo "<br>";

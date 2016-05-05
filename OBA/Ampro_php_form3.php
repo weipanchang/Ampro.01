@@ -18,8 +18,8 @@ if(!$fgmembersite->CheckLogin())
 <body>
 
 <?php
-   include("Ampro_station_info.php");
-   require_once("connMysql.php");
+    include("Ampro_station_info.php");
+    require_once("connMysql.php");
     function clean($string) {
        $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
        return preg_replace('/[^A-Za-z0-9#!*&?!@%\-]/', '', $string); // Removes special chars.
@@ -109,11 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $barcodeerror = "Barcode is required";
      $error=1;
    }
-   elseif (strlen($_POST["barcode"]) != 12) {
-     $barcodeerror = "Invalid Barcode. Please rescan!";
-     $error=1;
-   }
-   else {
+else {
      $barcode = test_input($_POST["barcode"]);
      $error=0;
    }
@@ -137,10 +133,10 @@ function test_input($data) {
    }
 ?>
 
-<form method="post" action="logout.php" >
-   <h5 style="text-align:right; color:red; text-decoration: underline";>Log Out, Please Click Logout &nbsp;</h5>
+<form method="post" action="login-home.php" >
+   <h5 style="text-align:right; color:red; text-decoration: underline";>Go Back, Please Click Back &nbsp;</h5>
    <div style="text-align:right">  
-      <input type="submit" name="submit" style="text-align:center;color: #FF0000; font-size: medium;" value="Logout">
+      <input type="submit" name="submit" style="text-align:center;color: #FF0000; font-size: medium;" value="Back">
    </div> 
 </form>
 <form method = "post" action="">
