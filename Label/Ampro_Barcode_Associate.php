@@ -101,33 +101,38 @@ if (isset($_POST['submit8'])) {
      {
         $model = $row['model'];
      }
-    
-//    $result=mysql_query($sql, $con);
-    $sql = "INSERT INTO `PCB_Barcode`(`AMP_barcode`, `SMC_Barcode`, `model`,`operator`) VALUES('$Ampro_barcode1','$SMC_barcode1', '$model', '$operator')";
-    
+    $sql = "SELECT * FROM `PCB_Issue_Tracking` WHERE `PCB` = '$Ampro_barcode1' and `fixed` = 0";
     $result=mysql_query($sql, $con);
-         if(! $result ) {
-            die('Could not enter data:     ' . mysql_error());
-         }
-         else
-         { 
-            echo "<br>";
-            echo "<br>";
-            echo "Barcode Entered Successfully!\n";
-
-         }
-    $sql = "INSERT INTO `PCB_Tracking`(`PCB`, `model`, `top`, `bottom`,`line`, `station`, `status`,
-        `scrapped`, `operator`, `note`) VALUES('$Ampro_barcode1', '$model', '1', '1','$line_number','$station_type',0,0,'$operator', 'SMC Barcode Associated')";
-    $result=mysql_query($sql, $con);
-         if(! $result ) {
-            die('Could not enter data:     ' . mysql_error());
-         }
-         else
-         { 
-            echo "<br>";
-            echo "<br>";
-            echo "Tracking Record Updated Successfully!\n";
-         }
+    $rowcount=mysql_num_rows($result);
+    if( $rowcount != 0 ) {
+            echo "This Ampro PCB is not link to SMC PCB. Due to some Issues are not fixed yet, Please return it to Repair Station\n";
+    }
+    else {
+        $sql = "INSERT INTO `PCB_Barcode`(`AMP_barcode`, `SMC_Barcode`, `model`,`operator`) VALUES('$Ampro_barcode1','$SMC_barcode1', '$model', '$operator')";
+         $result=mysql_query($sql, $con);
+             if(! $result ) {
+                die('Could not enter data:     ' . mysql_error());
+             }
+             else
+             { 
+                echo "<br>";
+                echo "<br>";
+                echo "Barcode Entered Successfully!\n";
+    
+             }
+        $sql = "INSERT INTO `PCB_Tracking`(`PCB`, `model`, `top`, `bottom`,`line`, `station`, `status`,
+            `scrapped`, `operator`, `note`) VALUES('$Ampro_barcode1', '$model', '1', '1','$line_number','$station_type',0,0,'$operator', 'SMC Barcode Associated')";
+        $result=mysql_query($sql, $con);
+             if(! $result ) {
+                die('Could not enter data:     ' . mysql_error());
+             }
+             else
+             { 
+                echo "<br>";
+                echo "<br>";
+                echo "Tracking Record Updated Successfully!\n";
+             }
+    }
     mysql_close($con);
     }
     else {
@@ -135,7 +140,7 @@ if (isset($_POST['submit8'])) {
     }
 }
 ?>
-<form method="post" action="Ampro_Barcode_Matching.php" >
+<form method="post" action="Ampro_Barcode_Associate.php" >
     <input type="submit" name="submit" style="color: #FF0000; font-size: larger;" value="Next">
 </form>
 
