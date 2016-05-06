@@ -105,7 +105,7 @@ if (isset($_POST['submit8'])) {
     $result=mysql_query($sql, $con);
     $rowcount=mysql_num_rows($result);
     if( $rowcount != 0 ) {
-            echo "This Ampro PCB is not link to SMC PCB. Due to some Issues are not fixed yet, Please return it to Repair Station\n";
+            echo "This Ampro PCB - ".$Ampro_barcode1." is not link to SMC PCB. Due to some Issues are not fixed yet, Please return it to Repair Station\n";
     }
     else {
         $sql = "INSERT INTO `PCB_Barcode`(`AMP_barcode`, `SMC_Barcode`, `model`,`operator`) VALUES('$Ampro_barcode1','$SMC_barcode1', '$model', '$operator')";

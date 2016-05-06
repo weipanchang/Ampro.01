@@ -103,7 +103,8 @@ $operator = $fgmembersite->UserFullName();
 if ($station_type=='AOI') {
    $model = $_POST['model'];
 }
-
+//echo $operator;
+//echo $model;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
    if (empty($_POST["barcode"])) {
      $barcodeerror = "Barcode is required";
@@ -188,9 +189,8 @@ if (($barcode != "") and ($error == 0)) {
    $rowcount=mysql_num_rows($result);
 }
 
-
-if (($station_type =="AOI") and ($error == 0) and ($barcode != "")) {
-   if ( $rowcount == 0) {
+if ( $rowcount == 0) {
+   if (($station_type =="AOI") and ($error == 0) and ($barcode != "")) {
       $sql = "INSERT INTO `PCB_Tracking`(`PCB`, `model`,`line`, `station`, `status`,
       `scrapped`, `operator`) VALUES('$barcode','$model','$line_number','$station_type',0,0,'$operator')";
       mysql_select_db($db_name);
@@ -206,28 +206,26 @@ if (($station_type =="AOI") and ($error == 0) and ($barcode != "")) {
          echo "<br>";
          }
    }
-
-
-   elseif ( $rowcount > 0) {
-      $model = test_input($model);
-      $sql = "SELECT * FROM `PCB_Tracking` WHERE  `PCB` = '$barcode' and `model` = '$model'";
+}
+else {
+    if (($station_type =="AOI") and ($error == 0) and ($barcode != "")) {
+      $sql = "SELECT * FROM `PCB_Tracking` WHERE `PCB` = '$barcode' and `model` != '$model' )";
       $con=mysql_connect($db_host,$db_username,$db_password);
       mysql_select_db($db_name);
       $result=mysql_query($sql, $con);
+      //$rowcount=mysql_num_rows($result);
+      if (empty($result)) {
 
-      $rowcount_1=mysql_num_rows($result);
-      if ($rowcount_1 == 0) {
-         $error=1;
          echo "<br>";
          echo "<br>";
-         echo "This PCB with barcode  - ". $barcode. " has been associated with another Model, Please verfiy the Model number!\n";
+         echo "This PCB with barcode  - ". $barcode. " is already associate another Model, Please verfiy the Model number!\n";
          echo "<br>";
          echo "<br>";
-      }
+         }     
+    }
+   
+    }
       mysql_close($con);
-   }
-}
-
 ?>
       <form method="post" action="Ampro_process.php" >
          <input type="hidden" name="barcode"
@@ -235,13 +233,13 @@ if (($station_type =="AOI") and ($error == 0) and ($barcode != "")) {
          <input type="hidden" name="name"
             value="<?php echo  $operator; ?>">
 <?php
-         if (($station_type =="AOI") and ($error==0)) {
+         if ($station_type =="AOI") {
 ?>
             <input type="hidden" name="model" value="<?php echo $model;?>">
-            <input type="submit" name="submit" style="color: #FF0000; font-size: larger;" value="Check In">
 <?php
          }
-?>            
+?>
+         <input type="submit" name="submit" value="Check In">
       </form>
 <?php
 
@@ -250,19 +248,29 @@ if (($station_type =="AOI") and ($error == 0) and ($barcode != "")) {
       echo "Barcode is not in database. Please send this PCB to AOI Station";
       echo "<br>";
    }
-   elseif (($error==0) and ($rowcount == 0) and ($barcode != "") and ($station_type !="AOI")) {
+ 
+
+else {
+
+   if ($error==0) {
 ?>
 <form method="post" action="Ampro_process.php" >
    <input type="hidden" name="barcode"
      value="<?php echo $_POST['barcode']; ?>">
    <input type="hidden" name="name"
         value="<?php echo  $operator; ?>">
-
+   <?php
+         if ($station_type =="AOI") {
+   ?>
+            <input type="hidden" name="model" value="<?php echo $model;?>">
+   <?php
+         }
+   ?>
    <input type="submit" name="submit" style="color: #FF0000; font-size: larger;" value="Check In">
 </form>
 <?php
    }
-
+}
 ?>
 
 </body>
