@@ -220,7 +220,7 @@ if (($station_type =="AOI") and ($error == 0) and ($barcode != "")) {
          $error=1;
          echo "<br>";
          echo "<br>";
-         echo "This PCB with barcode  - ". $barcode. " has been associated with another Model, Please verfiy the Model number!\n";
+         echo "<font color='red'>This PCB with barcode  - ". $barcode. " has been associated with another Model, Please verfiy the Model number!\n</font>";
          echo "<br>";
          echo "<br>";
       }
@@ -247,7 +247,7 @@ if (($station_type =="AOI") and ($error == 0) and ($barcode != "")) {
 
    if (($error==0) and ($rowcount == 0) and ($barcode != "") and ($station_type !="AOI")) {
       echo "<br>";
-      echo "Barcode is not in database. Please send this PCB to AOI Station";
+      echo "<font color='red'>Barcode is not in database. Please send this PCB to AOI Station</font>";
       echo "<br>";
    }
    elseif (($error==0) and ($rowcount == 0) and ($barcode != "") and ($station_type !="AOI")) {
