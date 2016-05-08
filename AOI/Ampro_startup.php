@@ -44,15 +44,13 @@ if(!$fgmembersite->CheckLogin())
       $data = htmlspecialchars($data);
       return $data;
    }
-   
    include("Ampro_station_info.php");
    require_once("connMysql.php");
 ?>
 
 <h1 style="text-align:center; color:blue; text-decoration: underline";>Ampro System PCB Check in/out</h1>
 <h3 style="text-align:center; color:blue; text-decoration: underline";> <?php echo $station_type; echo " Station    "; echo $line_number; ?></php?></h3>
-<form name="myform3" method="POST" action="">
-<!--   <p><span class="error">* Please select your name *</span></p>-->
+
    Welcome back <?= $fgmembersite->UserFullName(); ?>!
 <?php
       $con=mysql_connect($db_host,$db_username,$db_password);
@@ -61,31 +59,52 @@ if(!$fgmembersite->CheckLogin())
 
       if ($station_type=='AOI') {
 ?>
+   <form name="myform3" method="POST" action="">
    <p><span class="error">* Please select the Model number *</span></p>
-
+   <div style="text-align:left"> 
+        <ul>
 <?php
-      }
-      if ($station_type=='AOI') {
-         //$con=mysql_connect($db_host,$db_username,$db_password);
-         //mysql_select_db($db_name);
-         $sql = "SELECT * FROM `PCB_Model` order by model";
+         $sql = "SELECT * FROM `PCB_Model` group by model order by model";
          $result=mysql_query($sql);
          echo "<select name='model' size=8>";
          while ($row= mysql_fetch_array($result) ) {
             echo "<option value='" . $row['model'] ."'>" . $row['model'] ."</option>";
          }
          echo "</select>";
+?>
+        <input type="submit" name="submit3" style="color: #FF0000; font-size: larger;" value="Select the Model and Click here">
+        
+<?php
+        if ((isset($_POST['submit3']) and (isset($_POST['model'])))) {
+?>            
+
+     <form name="myform4" method="POST" action="">
+<?php                
+            $model = $_POST['model'];
+            $sql = "SELECT `revision` FROM `PCB_Model` where `model` = '$model' order by revision";
+            $result=mysql_query($sql);
+            echo "<select name='revision' size=8>";
+            while ($row= mysql_fetch_array($result))   {
+            echo "<option value='" . $row['revision'] ."'>" . $row['revision'] ."</option>";
+            }
+            echo "</select>";
+?>
+        <input type="hidden" name="model" value="<?php echo  $model;?>">
+        <input type="submit" name="submit4" style="color: #FF0000; font-size: larger;" value="Select the Revsion and Click here">
+<?php
+        }
       }
 ?>
-   <br><br>
-   <br><br>
-   <input type="submit" name="submit3" style="color: #FF0000; font-size: larger;" value="Confirm Your Select">
-</form>
+        </ul>
+    </div>
+    </form>
+
    <br><br>
 <?php
-   if (($station_type=='AOI') and (isset($_POST['submit3']))) {
-      //$operator=$_POST['name'];
-      $model=$_POST['model'];
+   if (($station_type=='AOI') and (isset($_POST['submit4']))) {
+      $revision=test_input($_POST['revision']);
+      $model=test_input($_POST['model']);
+      $model=$model.$revision;
       echo "<h4>Your Login ID is:  $operator </h4>";
       echo "<h4>Model:  $model </h4>";
 ?>
@@ -94,20 +113,16 @@ if(!$fgmembersite->CheckLogin())
      value="<?php echo  $operator; ?>">
    <input type="hidden" name="model"
      value="<?php echo  $model; ?>">
-   <input type="submit" name="submit3" style="color: #FF0000; font-size: larger;" value="Next">
+   <input type="submit" name="submit5" style="color: #FF0000; font-size: larger;" value="Next">
    </form>
 <?php   
    }
-   elseif (isset($_POST['submit3'])) {
-      $operator = $_SESSION['username'];
-      echo "<h4>Your Login ID is :  $operator </h4>";
+   elseif (isset($_POST['submit4'])) {
 ?>   
    <form method="post" action="Ampro_php_form3.php" >
-      <input type="hidden" name="name"
-        value="<?php echo  $operator; ?>">
       <input type="hidden" name="model"
         value="<?php echo  $model; ?>">
-      <input type="submit" name="submit3" style="color: #FF0000; font-size: larger;" value="Next">
+      <input type="submit" name="submit5" style="color: #FF0000; font-size: larger;" value="Next">
    </form>
 <?php
    }
