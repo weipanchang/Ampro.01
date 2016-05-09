@@ -104,7 +104,7 @@ if(!$fgmembersite->CheckLogin())
    if (($station_type=='AOI') and (isset($_POST['submit4']))) {
       $revision=test_input($_POST['revision']);
       $model=test_input($_POST['model']);
-      $model=$model.$revision;
+      $model=$model." R".$revision;
       echo "<h4>Your Login ID is:  $operator </h4>";
       echo "<h4>Model:  $model </h4>";
 ?>
@@ -130,5 +130,6 @@ if(!$fgmembersite->CheckLogin())
    mysql_close($con);
 ?>
 
+<p><a href='login-home.php'>Back</a></p>
 <p><a href='logout.php'>Logout</a></p>
 
