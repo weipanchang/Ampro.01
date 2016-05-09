@@ -97,7 +97,8 @@ if(!$fgmembersite->CheckLogin())
     echo "<table width='1300' border='5'; style='border-collapse: collapse;border-color: silver;'>";  
      echo "<td width=3%' align='center'>Rec</td><td width='5%' align='center'>PCB Number</td>";
     echo "<td width='1%' align='center'>Line</td><td width='4%' align='center'>Station</td>";
-    echo "<td width='15%' align='center'>Issue</td><td width='15%' align='center'>Defect</td> ";  
+    echo "<td width='15%' align='center'>Issue</td>";
+    //echo "<td width='15%' align='center'>Defect</td> ";  
     echo "<td width='15%' align='center'>Comment</td><td width='3%' align='center'>Fixed</td>";
     echo "<td width='8%' align='center'>Found At</td><td width='8%' align='center'>Fixed At</td></tr>";
     $sql = "SELECT * FROM `PCB_Issue_Tracking` WHERE `PCB` = '$barcode' order by create_time DESC";
@@ -118,7 +119,7 @@ if(!$fgmembersite->CheckLogin())
         echo "<td align='center' width='1%'>" . $row['line'] . "</td>";
         echo "<td align='center' width='4%'>" . $row['station'] . "</td>";
         echo "<td align='left' width='15%'>" . $row['Issue_log'] . "</td>";
-        echo "<td align='left' width='15%'>" . $row['defect'] . "</td>";
+        //echo "<td align='left' width='15%'>" . $row['defect'] . "</td>";
         echo "<td align='left' width='15%'>" . $row['r_comment'] . "</td>";  
         echo "<td align='center' width='3%'>" . $fixed . "</td>";  
         echo "<td align='center' width='8%'>" . $row['create_time'] . "</td>";
@@ -143,18 +144,18 @@ if(!$fgmembersite->CheckLogin())
     <p>
     <h5 style="text-align:left; color:red;">Please Input The Issue Rec Number You Fixed, Click at "Update this issue", and Refresh the Screen! (F5 key).....</h5>
     </p>
-<?php
-    $con=mysql_connect($db_host,$db_username,$db_password);
-    mysql_select_db($db_name);
-    $sql1 = "SELECT * FROM `PCB_Defect`";
-    $result1=mysql_query($sql1, $con);
-    echo "defect: &nbsp &nbsp &nbsp";
-    echo "<select name='defect'>";
-    while ($row= mysql_fetch_array($result1) ) {
-        echo "<option value='" . $row['Defect'] ."'>" . $row['Defect'] ."</option>";
-    }
-    echo "</select>";
-?>
+//<?php
+//    $con=mysql_connect($db_host,$db_username,$db_password);
+//    mysql_select_db($db_name);
+//    $sql1 = "SELECT * FROM `PCB_Defect`";
+//    $result1=mysql_query($sql1, $con);
+//    echo "defect: &nbsp &nbsp &nbsp";
+//    echo "<select name='defect'>";
+//    while ($row= mysql_fetch_array($result1) ) {
+//        echo "<option value='" . $row['Defect'] ."'>" . $row['Defect'] ."</option>";
+//    }
+//    echo "</select>";
+//?>
     <br>
 
     Comment: <textarea cols=70 rows=3 name="r_comment"  style="color:#CD2200" value=""></textarea>
@@ -177,7 +178,7 @@ if(!$fgmembersite->CheckLogin())
             echo "Issue ". $rec_number ." is marked as fixed.";
         }
         else {
-            echo "No Issue is marked as fixed";
+            echo "<font color='red'>No Issue is marked as fixed</font>";
         }
     }
     mysql_close($con);
