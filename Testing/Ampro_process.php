@@ -111,7 +111,7 @@ if(!$fgmembersite->CheckLogin())
         echo "<td align='center' width='1%'>" . $row['line'] . "</td>";
         echo "<td align='center' width='4%'>" . $row['station'] . "</td>";
         echo "<td align='left' width='15%'>" . $row['Issue_log'] . "</td>";
-        echo "<td align='left' width='10%'>" . $row['operator'] . "</td>";
+        echo "<td align='center' width='10%'>" . $row['operator'] . "</td>";
         echo "<td align='left' width='15%'>" . $row['r_comment'] . "</td>";  
         echo "<td align='center' width='3%'>" . $fixed . "</td>";  
         echo "<td align='center' width='8%'>" . $row['create_time'] . "</td>";
