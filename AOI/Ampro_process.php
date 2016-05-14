@@ -30,13 +30,9 @@ if(!$fgmembersite->CheckLogin())
     if ($station_type =="AOI") {
         $model = $_POST['model'];
     }
-
 ?>
 <h4 style="text-align:center; color:blue; text-decoration: underline";> <?php echo "Ampro System PCB Check in/out"; ?></php></h4>
 <h5 style="text-align:center; color:blue; text-decoration: underline";> <?php echo $station_type; echo " Station    "; echo $line_number; ?></php?></h5><h5 style="text-align:center; color:blue;";> <?php echo "Name: "; echo $operator;?></php?></h5>
-<h4>
-
-</h4>
 
 <?php
     $con=mysql_connect($db_host,$db_username,$db_password);

@@ -37,13 +37,6 @@ if(!$fgmembersite->CheckLogin())
 ?>
 <h4 style="text-align:center; color:blue; text-decoration: underline";> <?php echo "Ampro System PCB Check in/out"; ?></php></h4>
 <h5 style="text-align:center; color:blue; text-decoration: underline";> <?php echo $station_type; echo " Station    "; echo $line_number; ?></php?></h5><h5 style="text-align:center; color:blue;";> <?php echo "Name: "; echo $operator;?></php?></h5>
-<h4>
-<?php
-    //echo "You currently are processing PCB - ";
-    //echo $barcode;
-    //echo "<br>";
-?>
-</h4>
 
 <?php
     $con=mysql_connect($db_host,$db_username,$db_password);
@@ -84,7 +77,6 @@ if(!$fgmembersite->CheckLogin())
             echo $row['station'];
             echo " ";
             echo $row['line']. ": ";
-            //echo "<br>";
             echo "<font color='blue'>".$row['note']."</font>";
             echo "<br>";
         }
@@ -94,7 +86,6 @@ if(!$fgmembersite->CheckLogin())
     
 <?php
     $rec_array = array();
-//    $rec_array=[];
     echo "Issue Log: ";
     echo "<br>";
     echo "<table width='1300' border='5'; style='border-collapse: collapse;border-color: silver;'>";  
@@ -102,7 +93,7 @@ if(!$fgmembersite->CheckLogin())
     echo "<td width=3%' align='center'>Rec</td><td width='5%' align='center'>PCB Number</td>";
     echo "<td width='1%' align='center'>Line</td><td width='4%' align='center'>Station</td>";
     echo "<td width='15%' align='center'>Issue</td>";
-    //echo "<td width='15%' align='center'>Defect</td> ";  
+    echo "<td width='10%' align='center'>Found By</td> ";  
     echo "<td width='15%' align='center'>Comment</td><td width='3%' align='center'>Fixed</td>";
     echo "<td width='8%' align='center'>Found At</td><td width='8%' align='center'>Fixed At</td></tr>";
     $sql = "SELECT * FROM `PCB_Issue_Tracking` WHERE `PCB` = '$barcode' order by create_time DESC";
@@ -123,7 +114,7 @@ if(!$fgmembersite->CheckLogin())
         echo "<td align='center' width='1%'>" . $row['line'] . "</td>";
         echo "<td align='center' width='4%'>" . $row['station'] . "</td>";
         echo "<td align='left' width='15%'>" . $row['Issue_log'] . "</td>";
-        //echo "<td align='left' width='15%'>" . $row['defect'] . "</td>";
+        echo "<td align='left' width='15%'>" . $row['operator'] . "</td>";
         echo "<td align='left' width='15%'>" . $row['r_comment'] . "</td>";  
         echo "<td align='center' width='3%'>" . $fixed . "</td>";  
         echo "<td align='center' width='8%'>" . $row['create_time'] . "</td>";
@@ -133,7 +124,6 @@ if(!$fgmembersite->CheckLogin())
     echo "</table>";  
     echo "   ";
     mysql_close($con);
-    
 ?>
 
 <?php
@@ -202,17 +192,7 @@ if(!$fgmembersite->CheckLogin())
         <option value="top">Top</option>
         <option value="bottom">Bottom</option>
     </select>
-//<?php
-//    $con=mysql_connect($db_host,$db_username,$db_password);
-//    mysql_select_db($db_name);
-//    $sql1 = "SELECT * FROM `PCB_Defect`";
-//    $result1=mysql_query($sql1, $con);
-//    echo "<select name='defect'>";
-//    while ($row= mysql_fetch_array($result1) ) {
-//        echo "<option value='" . $row['Defect'] ."'>" . $row['Defect'] ."</option>";
-//    }
-//    echo "</select>";
-//?>
+
     <br>
     <textarea cols=70 rows=3 name="location"  style="color:#CD2200" value="">Location: </textarea>
     <input type="hidden" name="barcode" value="<?php echo  $barcode;?>">
@@ -231,7 +211,6 @@ if(!$fgmembersite->CheckLogin())
 
 <?php
     if (isset($_POST['submit6'])) {
-        //$defect= $_POST['defect'];
         $issueinfo = $_POST['issue']. " on " .$_POST['topbottom']. " in ".  $_POST['location'];
         if (!($issueinfo === ' on top in ')) {
             if ((substr($issueinfo, 0, 11)) == ' on top in '){
@@ -242,15 +221,7 @@ if(!$fgmembersite->CheckLogin())
             $result = mysql_query($sql, $con);
             $row= mysql_fetch_array($result); 
             $dd = new DateTime();
-            //echo $dd->format('Y-m-d H:i:s');
-            //echo "<br>";
             $dd= ($dd->modify("-20 minutes"));
-            //echo $dd->format('Y-m-d H:i:s');
-            //echo "<br>";
-            //echo $row['create_time'];
-            //echo "<br>";
-            //echo $row['Issue_log'];
-            //echo "<br>";
             if (!($issueinfo == $row['Issue_log'] and $row['create_time'] <= $dd)) {
             $sql = "INSERT INTO `PCB_Issue_Tracking`(`PCB`, `Issue_log`, `station`, `line`, `operator`) VALUES('$barcode','$issueinfo', '$station_type','$line_number', '$operator')";
             $result=mysql_query($sql, $con);
@@ -262,7 +233,6 @@ if(!$fgmembersite->CheckLogin())
     mysql_close($con);
   }
 ?>
-
 
 <form name="testform" action="Ampro_php_form3.php" method="POST">
     <br>
