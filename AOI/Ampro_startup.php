@@ -71,6 +71,7 @@ if(!$fgmembersite->CheckLogin())
             echo "<option value='" . $row['model'] ."'>" . $row['model'] ."</option>";
          }
          echo "</select>";
+         echo "<br>";
 ?>
         <input type="submit" name="submit3" style="color: #FF0000; font-size: larger;" value="Select the Model and Click here">
         
@@ -81,13 +82,16 @@ if(!$fgmembersite->CheckLogin())
      <form name="myform4" method="POST" action="">
 <?php                
             $model = $_POST['model'];
+            echo "<h3 style='color:blue';>"."You Selected ".$model."</h3>";
+            echo "<br>";
             $sql = "SELECT `revision` FROM `PCB_Model` where `model` = '$model' order by revision";
             $result=mysql_query($sql);
-            echo "<select name='revision' size=8>";
+            echo "<select name='revision' size=3>";
             while ($row= mysql_fetch_array($result))   {
             echo "<option value='" . $row['revision'] ."'>" . $row['revision'] ."</option>";
             }
             echo "</select>";
+            echo "<br>";
 ?>
         <input type="hidden" name="model" value="<?php echo  $model;?>">
         <input type="submit" name="submit4" style="color: #FF0000; font-size: larger;" value="Select the Revsion and Click here">
@@ -126,10 +130,10 @@ if(!$fgmembersite->CheckLogin())
    </form>
 <?php
    }
-   echo "<br>";
    mysql_close($con);
 ?>
 
+<p><a href='Ampro_startup.php'>Refreash Page</a></p>
 <p><a href='login-home.php'>Back</a></p>
 <p><a href='logout.php'>Logout</a></p>
 
